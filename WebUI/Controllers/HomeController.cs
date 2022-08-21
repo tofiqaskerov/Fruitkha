@@ -1,21 +1,32 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Business.Abstract;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using WebUI.Models;
+using WebUI.ViewModels;
 
 namespace WebUI.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductManager _productManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductManager productManager)
         {
             _logger = logger;
+            _productManager = productManager;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var productSlider = _productManager.GetSliderProducts();
+            var products = _productManager.GetHomeProducts();
+            HomeVM vm = new()
+            {
+                Products = products,
+                ProductsSlider = productSlider,
+            };
+            return View(vm);
         }
 
         public IActionResult Privacy()

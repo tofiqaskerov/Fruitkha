@@ -11,6 +11,7 @@ namespace Entities.Concrete
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        
         public decimal Price { get; set; }
         public string Description { get; set; }
         public decimal Quantity { get; set; }
@@ -20,6 +21,7 @@ namespace Entities.Concrete
         public bool IsSlider { get; set; }
         public bool IsDelete { get; set; }
         public string SeoUrl { get; set; }
+
 
     }
 }
