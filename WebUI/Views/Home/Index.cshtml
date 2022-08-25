@@ -1,11 +1,11 @@
 ﻿@model HomeVM
-
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <!-- home page slider -->
 <div class="homepage-slider">
+
     @foreach (var slider in Model.ProductsSlider)
     {
         <div class="single-homepage-slider homepage-bg-1" style="background-image: url(@slider.CoverPhoto)">
@@ -16,7 +16,7 @@
                             <div class="hero-text-tablecell">
                                 <h1>@slider.Name</h1>
                                 <div class="hero-btns">
-                                    <a asp-controller="Product" asp-action="Detail" asp-route-id="@slider.Id" class="boxed-btn">Detail</a>
+                                    <a asp-controller="product" asp-action="detail" asp-route-id="@slider.Id" class="boxed-btn">Detail</a>
                                 </div>
                             </div>
                         </div>
@@ -32,6 +32,7 @@
 <!-- features list section -->
 <div class="list-section pt-80 pb-80">
     <div class="container">
+
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                 <div class="list-box d-flex align-items-center">
@@ -82,7 +83,9 @@
                 </div>
             </div>
         </div>
+
         <div class="row">
+
             @foreach (var product in Model.Products)
             {
                 <div id="cart_@product.Id" class="col-lg-4 col-md-6 text-center">
@@ -91,10 +94,11 @@
                             <a asp-controller="product" asp-action="detail" asp-route-id="@product.Id"><img src="@product.PhotoURL" alt="@product.Name"></a>
                         </div>
                         <h3 class="productName">@product.Name</h3>
-                        <p class="product-price"><span>Per Kg</span><p class="product-price productPrice">@product.Price $</p>  </p>
+                        <p class="product-price"><span>Per Kg</span> <p class="product-price productPrice">@product.Price $</p> </p>
                         <a onclick="addToCart(@product.Id)" class="cart-btn addToCart"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                     </div>
                 </div>
+
             }
         </div>
     </div>
@@ -307,27 +311,44 @@
     </div>
 </div>
 <!-- end logo carousel -->
+@section Scripts {
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    if (getCookie("products") == null) {
+        document.cookie = "products=" + JSON.stringify([])
+    }
+    let addButton = document.getElementsByClassName("addToCart")
 
+    function addToCart(productId) {
+        let cookieTets = JSON.parse(getCookie("products"))
+        let productCart = document.getElementById(`cart_${productId}`)
+        let id = productId
+        let image = productCart.getElementsByTagName("img")[0].currentSrc
+        let price = productCart.getElementsByClassName("productPrice")[0].innerText
+        let name = productCart.getElementsByClassName("productName")[0].innerText
+        let cartItem = { id: id, image: image, price: price.replace(" $", ""), name: name, quantity: 1 }
+        let findId = cookieTets.length != 0 ? cookieTets.filter(x => x.id == id) : []
+        if (findId.length != 0) {
+            cookieTets.filter(x=>x.id == id).map(x=>{
+                x.quantity+=1;
+            })
+            document.cookie = "products=" + JSON.stringify(cookieTets)
+        } else {
+            document.cookie = "products=" + JSON.stringify([...cookieTets, cartItem])
+        }
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: `${name} is added to cart`,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
 
-
-
-
-@section Scripts{
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js" integrity="sha512-wT7uPE7tOP6w4o28u1DN775jYjHQApdBnib5Pho4RB0Pgd9y7eSkAV1BTqQydupYDB9GBhTcQQzyNMPMV3cAew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script>
-           let addButton = document.getElementsByClassName("addToCart");
-           var data = Cookies.get("products")
-           var testData = []
-           testData.push(data)
-           function addToCart(productId){
-               let productCart = document.getElementById(`cart_${productId}`)
-               let id = productId   
-               let image = productCart.getElementsByTagName("img")[0].currentSrc
-               let price = productCart.getElementsByClassName("productPrice")[0].innerText
-               let name = productCart.getElementsByClassName("productName")[0].innerText
-               let cartItem = {id: id, image: image, price: price, name: name}
-               document.cookie = "products=" + JSON.stringify(cartItem)
-       }
-    </script>
-
-}
+</script>
+} 
