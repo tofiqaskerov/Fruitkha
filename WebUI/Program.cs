@@ -9,10 +9,17 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<ICategoryDal, CategoryDal>();
 builder.Services.AddScoped<ICategoryManager, CategoryManager>();
+
 builder.Services.AddScoped<IProductDal, ProductDal>();
 builder.Services.AddScoped<IProductManager, ProductManager>();
+
 builder.Services.AddScoped<IProductCategoryDal, ProductCategoryDal>();
 builder.Services.AddScoped<IProductCategoryManager, ProductCategoryManager>();
+
+builder.Services.AddScoped<IUserManager, UserManager>();
+builder.Services.AddScoped<IUserDal, UserDal>();
+
+builder.Services.AddScoped<IAuthManager, AuthManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
