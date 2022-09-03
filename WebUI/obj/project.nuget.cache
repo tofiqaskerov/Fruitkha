@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "NNWSEckNDC0RZJ/id5gpHKgEd4mnoBG3qfulO2jETZA3+ebhIgH7hTYM/6fnyADPZOTb/X94GhjwhoCQIvUCBQ==",
+  "dgSpecHash": "wSnev47Uj2bfC+WlseqVr7UDAbjf9K2U9RTs3mbc6zy5kp5jDYds9Gkt4Yhl+ZuWAYAronU/8+C8yvyONr3xPQ==",
   "success": true,
   "projectFilePath": "E:\\Compar.Academy\\csharp\\Web\\Fruitkha\\WebUI\\WebUI.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\Tofiq\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
+    "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.8\\microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.build\\17.0.0\\microsoft.build.17.0.0.nupkg.sha512",
@@ -53,8 +54,8 @@
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.abstractions\\6.22.1\\microsoft.identitymodel.abstractions.6.22.1.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\6.22.1\\microsoft.identitymodel.jsonwebtokens.6.22.1.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.logging\\6.22.1\\microsoft.identitymodel.logging.6.22.1.nupkg.sha512",
-    "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.8.0\\microsoft.identitymodel.protocols.6.8.0.nupkg.sha512",
-    "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.8.0\\microsoft.identitymodel.protocols.openidconnect.6.8.0.nupkg.sha512",
+    "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.protocols\\6.10.0\\microsoft.identitymodel.protocols.6.10.0.nupkg.sha512",
+    "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\6.10.0\\microsoft.identitymodel.protocols.openidconnect.6.10.0.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.identitymodel.tokens\\6.22.1\\microsoft.identitymodel.tokens.6.22.1.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.net.stringtools\\1.0.0\\microsoft.net.stringtools.1.0.0.nupkg.sha512",
     "C:\\Users\\Tofiq\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",

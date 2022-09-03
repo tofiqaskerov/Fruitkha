@@ -2,8 +2,33 @@ using Business.Abstract;
 using Business.Concrete;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntitieFramework;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(x =>
+{
+    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(option =>
+{
+    var key = Encoding.ASCII.GetBytes("qwertyuioplkjhgfds4azx6cv2bn6mP24fwg57e3534TEIRefbEuf4G4wubFT4GY");
+    var issuer = "ComparAcademy";
+    var audience = "ComparAcademy";
+
+    option.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(key),
+        RequireExpirationTime = true,
+        ValidateAudience = true,
+        ValidateIssuer = true,
+        ValidAudience = audience,
+        ValidIssuer = issuer,
+    };
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -33,6 +58,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

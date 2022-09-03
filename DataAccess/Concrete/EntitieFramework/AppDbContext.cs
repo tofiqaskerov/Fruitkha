@@ -1,4 +1,5 @@
-﻿using Entities.Concrete;
+﻿using Core.Entity.Models;
+using Entities.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -20,5 +21,8 @@ namespace DataAccess.Concrete.EntitieFramework
         public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<ProductOrder> ProductOrders { get; set; }
+        public DbSet<User> User {get; set; }
+        public DbSet<Role> Role { get; set; }
+        public DbSet<UserRole> UserRole { get; set; }
     }
 }

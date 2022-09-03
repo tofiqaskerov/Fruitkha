@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
+using Core.Entity.Models;
 using Core.Security.Hashing;
+using Core.Security.Jwt;
 using Entities.DTOs;
 using System;
 using System.Collections.Generic;
@@ -28,12 +30,24 @@ namespace Business.Concrete
             if (!checkPassword)
                 return null;
 
-            return null;
+            var token = TokenGenerator.Token(checkUser, "User");
+
+            return token;
         }
 
         public void Register(RegisterDTO registerDTO)
         {
-            throw new NotImplementedException();
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.HashPassword(registerDTO.Password, out passwordHash, out passwordSalt);
+            User user = new()
+            {
+                Email = registerDTO.Email,
+                Name = registerDTO.Name,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Surname = registerDTO.Surname,
+            };
+            _userManager.Add(user);
         }
     }
 }
