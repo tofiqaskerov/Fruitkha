@@ -15,7 +15,8 @@ namespace DataAccess.Abstract
         List<Product> GetAllHomeProducts();
         List<Product> RelatedProducts(List<int> categoriesId, int productId);
         Product AddProduct(Product product);
-        ProductDetailDTO GetProductById( int productId);
+        ProductDetailDTO GetProductById(int productId);
+        List<Product> GetFilterShopProduct(int? categoryId, decimal? minPrice, decimal? maxPrice);
 
     }
 }

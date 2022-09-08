@@ -18,7 +18,7 @@ namespace WebUI.Controllers
         {
             return View();
         }
-        [Authorize]
+       
         public IActionResult Detail(int id)
         {
             try

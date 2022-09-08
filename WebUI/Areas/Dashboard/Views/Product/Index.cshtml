@@ -77,8 +77,9 @@
                                 }
                             </td>
                             <td>
-                                <a class="btn btn-outline-danger" href="/dashboard/product/delete/@product.Id">Delete</a>
+                                <a class="btn btn-outline-danger"  href="/dashboard/product/delete/@product.Id">Delete</a>
                                 <a class="btn btn-outline-warning" href="/dashboard/product/update/@product.Id">Update</a>
+                                <a product-value="@product.Id"  class="btn btnSave btn-outline-warning">Restore</a>
                             </td>
                         </tr>
                     }
@@ -88,3 +89,41 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+    $(".btnSave").click(function(e) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let productId = e.currentTarget.attributes[0].value
+                $.ajax({
+                    method: "POST",
+                    url: "product/restore/",
+                    data: {
+                        id: productId
+                    }
+                })
+                Swal.fire({
+                    title: 'Restore',
+                    text: "This product is restore!",
+                    icon: 'success',
+
+                }).then((result) => {
+                    window.location = "product"
+                })
+
+            }
+        })
+    })
+</script>
+}

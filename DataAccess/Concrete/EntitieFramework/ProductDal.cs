@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Concrete.EntitieFramework
 {
-    public class ProductDal : EfEntityRepositoryBase<Product, AppDbContext>, IProductDal 
+    public class ProductDal : EfEntityRepositoryBase<Product, AppDbContext>, IProductDal
     {
      
         public  Product AddProduct(Product product)
@@ -25,7 +25,7 @@ namespace DataAccess.Concrete.EntitieFramework
         public List<Product> GetAllHomeProducts()
         {
             using AppDbContext _context = new();
-            return _context.Products.Where(x =>x.IsDelete ==false).Take(3).ToList();
+            return _context.Products.Where(x =>x.IsDelete == false).Take(3).ToList();
         }
         public List<Product> GetByCategory(int categoryId)
         {
@@ -40,6 +40,25 @@ namespace DataAccess.Concrete.EntitieFramework
                 products.Add(findedProduct);
             }
             return products;
+        }
+
+        public List<Product> GetFilterShopProduct(int? categoryId, decimal? minPrice, decimal? maxPrice)
+        {
+            using var _context = new AppDbContext();
+            if(categoryId != null)
+            {
+                var productCategory = _context.ProductCategories.Where(x => x.CategoryId == categoryId).ToList();
+                List<Product> result = new();
+                for (int i = 0; i < productCategory.Count; i++)
+                {
+                    var product = _context.Products.FirstOrDefault(x => x.Id == productCategory[i].ProductId);
+                    result.Add(product);
+                }
+                return result;
+            }
+
+            var pro = _context.Products.ToList();
+            return pro;
         }
 
         public ProductDetailDTO GetProductById(int productId)

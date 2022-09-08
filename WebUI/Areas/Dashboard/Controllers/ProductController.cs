@@ -78,7 +78,7 @@ namespace WebUI.Areas.Dashboard.Controllers
             try
             {
                 _productManager.Delete(product.Id);
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception)
             {
@@ -86,6 +86,21 @@ namespace WebUI.Areas.Dashboard.Controllers
             }
             
 
+        }
+        [HttpGet]
+        public IActionResult Restore(int id)
+        {
+            var products = _productManager.Get(id);
+            if (products == null) return RedirectToAction("Index"); 
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult Restore(Product product)
+        {
+
+            _productManager.Restore(product.Id);
+            return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Update(int id)
@@ -155,6 +170,9 @@ namespace WebUI.Areas.Dashboard.Controllers
             }
            
         }
-       
+        
+
+        
+
     }
 }

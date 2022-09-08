@@ -33,6 +33,7 @@ namespace Business.Concrete
             var token = TokenGenerator.Token(checkUser, "User");
 
             return token;
+            
         }
 
         public void Register(RegisterDTO registerDTO)

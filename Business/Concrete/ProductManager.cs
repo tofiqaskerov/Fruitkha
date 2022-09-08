@@ -57,6 +57,11 @@ namespace Business.Concrete
             return  _productDal.GetByCategory(categoryId);
         }
 
+        public List<Product> GetShopProducts(int? categoryId, decimal? minPrice, decimal? maxPrice)
+        {
+            return _productDal.GetFilterShopProduct(categoryId, minPrice, maxPrice);
+        }
+
         public List<Product> GetSliderProducts()
         {
             return _productDal.GetAll(x => x.IsSlider == true && x.IsDelete == false);
@@ -65,6 +70,13 @@ namespace Business.Concrete
         public List<Product> RelatedProducts(List<int> categoriesId, int productId)
         {
             return _productDal.RelatedProducts(categoriesId, productId);
+        }
+
+        public void Restore(int productId)
+        {
+            var product = _productDal.Get(x => x.Id == productId);
+            product.IsDelete = false;
+            _productDal.Update(product);
         }
 
         public void Update(Product product)
