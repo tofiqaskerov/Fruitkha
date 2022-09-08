@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Shop Page";
 }
-
+<style>
+    
+</style>
 
 <!-- breadcrumb-section -->
 <div class="breadcrumb-section breadcrumb-bg">
@@ -31,7 +33,7 @@
 
                         @foreach (var category in Model.Categories)
                         {
-                            <li ><a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.Id"> @category.Name</a></li>
+                            <li class="categories-li" ><a asp-controller="Shop" asp-action="Index" asp-route-categoryId="@category.Id"> @category.Name</a></li>
 
                         }
 
@@ -41,18 +43,19 @@
         </div>
 
         <div class="row product-lists">
-            @foreach (var item in Model.Products)
+           @foreach (var product in Model.Products)
             {
-                <div class="col-lg-4 col-md-6 text-center strawberry">
+                <div id="cart_@product.Id" class="col-lg-4 col-md-6 text-center">
                     <div class="single-product-item">
                         <div class="product-image">
-                            <a href="/product/detail/@item.Id"><img src="@item.PhotoURL" alt=""></a>
+                            <a asp-controller="product" asp-action="detail" asp-route-id="@product.Id"><img width="200" height="200" src="@product.PhotoURL" alt="@product.Name"></a>
                         </div>
-                        <h3>@item.Name</h3>
-                        <p class="product-price"><span>Per Kg</span> @item.Price </p>
-                        <a href="cart.html" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <h3 class="productName">@product.Name</h3>
+                        <p class="product-price"><span>Per Kg</span> <p class="product-price productPrice">@product.Price $</p> </p>
+                        <a onclick="addToCart(@product.Id)" class="cart-btn addToCart"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                     </div>
                 </div>
+
             }
 
 
@@ -102,3 +105,54 @@
     </div>
 </div>
 <!-- end logo carousel -->
+
+
+@section Scripts {
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    if (getCookie("products") == null) {
+        document.cookie = "products=" + JSON.stringify([])
+    }
+    let addButton = document.getElementsByClassName("addToCart")
+
+    function addToCart(productId) {
+        let cookieTets = JSON.parse(getCookie("products"))
+        let productCart = document.getElementById(`cart_${productId}`)
+        let id = productId
+        let image = productCart.getElementsByTagName("img")[0].currentSrc
+        let price = productCart.getElementsByClassName("productPrice")[0].innerText
+        let name = productCart.getElementsByClassName("productName")[0].innerText
+        let cartItem = { id: id, image: image, price: price.replace(" $", ""), name: name, quantity: 1 }
+        let findId = cookieTets.length != 0 ? cookieTets.filter(x => x.id == id) : []
+
+        
+            var expires = "";
+             var date = new Date();
+        date.setTime(date.getTime() + (2*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+
+
+        if (findId.length != 0) {
+            cookieTets.filter(x=>x.id == id).map(x=>{
+                x.quantity+=1;
+            })
+            document.cookie = "products=" + JSON.stringify(cookieTets)+expires
+        } else {
+            document.cookie = "products=" + JSON.stringify([...cookieTets, cartItem])+expires
+        }
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: `${name} is added to cart`,
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+
+</script>
+} 

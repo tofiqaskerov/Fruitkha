@@ -57,7 +57,7 @@ namespace DataAccess.Concrete.EntitieFramework
                 return result;
             }
 
-            var pro = _context.Products.ToList();
+            var pro = _context.Products.Where(x => x.IsDelete == false).ToList();
             return pro;
         }
 

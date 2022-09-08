@@ -91,7 +91,7 @@
                 <div id="cart_@product.Id" class="col-lg-4 col-md-6 text-center">
                     <div class="single-product-item">
                         <div class="product-image">
-                            <a asp-controller="product" asp-action="detail" asp-route-id="@product.Id"><img src="@product.PhotoURL" alt="@product.Name"></a>
+                            <a asp-controller="product" asp-action="detail" asp-route-id="@product.Id"><img width="200" height="200" src="@product.PhotoURL" alt="@product.Name"></a>
                         </div>
                         <h3 class="productName">@product.Name</h3>
                         <p class="product-price"><span>Per Kg</span> <p class="product-price productPrice">@product.Price $</p> </p>
